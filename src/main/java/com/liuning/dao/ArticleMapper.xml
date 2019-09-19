@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liuning.dao.ArticleMapper">
+	
+	<select id="list" resultType="Article">      
+		 select a.id,a.title,a.picture,a.channel_id AS channelId,a.category_id categoryId,a.user_id AS userId,a.
+		      hits,a.hot,a.status,a.deleted,a.created,a.updated, u.username, GROUP_CONCAT(t.tagname) as tags 
+		      from cms_article as a left join cms_user u on u.id=a.user_id 
+              left join cms_article_tag_middle as atm on atm.aid=a.id
+              LEFT join cms_tag as t on t.id=atm.tid
+		 <where>
+		 	<if test="channelId!=0">
+		 		and a.channel_id=#{channelId}
+		 	</if>
+		 	<if test="catId!=0">
+		 		and a.category_id=#{catId}
+		 	</if>
+		 </where>
+	</select>
+	
+	<select id="findById" resultType="Article">
+		select a.id,a.content,a.title,a.picture,a.channel_id AS channelId,a.category_id categoryId,a.user_id AS userId,a.
+		      hits,a.hot,a.status,a.deleted,a.created,a.updated, u.username, GROUP_CONCAT(t.tagname) as tags 
+		      from cms_article as a left join cms_user u on u.id=a.user_id 
+              left join cms_article_tag_middle as atm on atm.aid=a.id
+              LEFT join cms_tag as t on t.id=atm.tid  
+              where a.id=#{value}
+			  group by a.id 
+	</select>
+	
+	<select id="listByUser" resultType="Article">
+		select a.id,a.content,a.title,a.picture,a.channel_id AS channelId,a.category_id categoryId,a.user_id AS userId,a.
+		      hits,a.hot,a.status,a.deleted,a.created,a.updated, cat.`name` as catName , chn.`name` as chnName, GROUP_CONCAT(t.tagname) as tags 
+		      from cms_article as a 
+						  left join cms_channel as chn on chn.id=a.channel_id 
+							left join cms_category as cat on cat.id=a.category_id
+              left join cms_article_tag_middle as atm on atm.aid=a.id
+              LEFT join cms_tag as t on t.id=atm.tid  
+              where a.user_id=#{userId}
+			  group by a.id 
+	</select>
+	
+	<select id="checkList" resultType="Article">
+			select a.id,a.content,a.title,a.picture,a.channel_id AS channelId,a.category_id categoryId,a.user_id AS userId,
+			  a.hits,a.hot,a.status,a.deleted,a.created,a.updated, cat.`name` as catName ,
+			   chn.`name` as chnName, GROUP_CONCAT(t.tagname) as tags ,u.username
+		      from cms_article as a 
+		        left join cms_user u on u.id=a.user_id 
+				left join cms_channel as chn on chn.id=a.channel_id 
+				left join cms_category as cat on cat.id=a.category_id
+              left join cms_article_tag_middle as atm on atm.aid=a.id
+              LEFT join cms_tag as t on t.id=atm.tid  
+              where a.status=#{value}
+			  group by a.id 
+			  order by a.created desc
+			  
+	</select>
+	
+	
+	
+	<insert id="add" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+		insert into cms_article(status,created,hits,hot,deleted,content,title,picture,channel_id,category_id,user_id)
+		
+		 values(0,now(),0,0,0,#{content},#{title},#{picture},#{channelId},#{categoryId},#{userId})
+	</insert>
+</mapper>
