@@ -90,7 +90,11 @@ public class UserController {
 		if(loginUser==null) {
 			request.setAttribute("error", "用户密码错误");
 			return "user/login";
-		}else {
+		}else if(loginUser.getLocked()==1){
+			request.setAttribute("error", "用户无法登录");
+			return "user/login";
+		}else{
+			//ConstantFinal.USER_SESSION_KEY  一个常量
 			request.getSession().setAttribute(ConstantFinal.USER_SESSION_KEY, loginUser);
 			return "1".equals(loginUser.getRole())?"redirect:/admin/index" : "redirect:/user/home";	
 		}
@@ -141,7 +145,14 @@ public class UserController {
 		request.getSession().removeAttribute(ConstantFinal.USER_SESSION_KEY);
 		return "redirect:/index";
 	}
-	
+	@RequestMapping("update")
+	@ResponseBody
+	public boolean updateloc(Integer id,Integer locked,HttpServletRequest request) {
+		
+		
+		return userService.updateloc(id,locked);
+		
+	}
 	
 
 }

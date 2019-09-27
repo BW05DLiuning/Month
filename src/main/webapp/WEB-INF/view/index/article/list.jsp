@@ -1,33 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<ul class="nav">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-  
+<ul class="nav">
 	<!-- 所有分类下的文章 -->
 	<div id="article">
 
 	<ul class="list-unstyled">
 		<hr>
 	   <!-- 栏目下所有文章 -->
-		<c:forEach items="${pageInfo.list }" var="a">
+		<c:forEach items="${pageInfo.list }" var="a"><!--更具频道id查询的分类  -->
 			<li class="media"><img  width="120px" height="120px" class="mr-3" src="/pic/${a.picture }"
 				alt="no pic">
 				<div class="media-body">
 					<h5 class="mt-0 mb-1"><small><a href="javascript:myopen(${a.id })"> ${a.title }</a></small></h5>
 					<br>
 					<br>
-					<h5 class="mt-0 mb-1"><small> ${a.username } &nbsp;  ${a.created }</small></h5>
-					
+					<h5 class="mt-0 mb-1"><small> ${a.username } &nbsp;<fmt:formatDate value="${a.created }"/>  </small></h5>			
 				</div>
-				
-				
 				</li>
 				<hr>
 		</c:forEach>
+	<li>${pageStr}</li> 
 	</ul>
 </ul>
-	</div>
+
 
 	<script type="text/javascript">
 	 function myopen(id){

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 
- * @author Zhang旭涛
+ * @author liuning
  *
  */
 public class Channel  implements Serializable{

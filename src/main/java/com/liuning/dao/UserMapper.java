@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.liuning.entity.User;
 
@@ -46,6 +47,9 @@ public interface UserMapper {
 			+ " order by createTime desc ")
 	@ResultType(User.class)
 	List<User> queryList(@Param("name") String name);
+
+	@Update("update cms_user set locked=#{locked},update_time=now() WHERE id=#{id}")
+	boolean updateloc(@Param("id")Integer id,@Param("locked") Integer locked);
 	
 	
 	

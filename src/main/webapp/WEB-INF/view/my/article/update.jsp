@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("UTF-8");
-String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
+String htmlData = request.getAttribute("content1") != null ? (String)request.getAttribute("content1") : "";
 %>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>文章发布</title>
 <script>
@@ -38,9 +38,10 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 </head>
 <body>
 	<form action="" id="form">
+	<input type="hidden" name="id" value="${art.id}"> 
 		<div class="form-group row ">
 			<label for="title">文章标题</label> <input type="text"
-				class="form-control" id="title" name="title" placeholder="请输入标题">
+				class="form-control" id="title" value="${art.title}" name="title"  placeholder="请输入标题">
 		</div>
 
 
@@ -51,15 +52,17 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 		</div>
 		<div class="form-group row ">
 			<label for="title">文章标题图片</label> <input type="file"
-				class="form-control" id="file" name="file">
+				class="form-control" id="file" name="file" >
 		</div>
 		<div class="form-group row ">
 		  	<label for="channel">文章栏目</label> 
 			<select class="custom-select custom-select-sm mb-3" id="channel"  name="channelId">
+			
 			  <option></option>
 			</select>
 			<label for="category">文章分类</label> 
 			<select class="custom-select custom-select-sm mb-3" id="category" name="categoryId">
+			
 			</select>
 		</div>
 		
@@ -83,7 +86,7 @@ function publish(){
 	//alert(editor1.html())
 	
 		//序列化表单数据带文件
-		 var formData = new FormData($( "#form" )[0]);
+		 var formData = new FormData($("#form")[0]);
 		//改变formData的值
 		//editor1.html() 是富文本的内容
 		 formData.set("content",editor1.html());
@@ -95,10 +98,10 @@ function publish(){
 			processData : false,
 			// 告诉jQuery不要去设置Content-Type请求头
 			contentType : false,
-			url:"/article/publish",
+			url:"/article/update",
 			success:function(obj){
 				if(obj){
-					alert("发布成功1111!")
+					alert("发布成功")
 					$('#center').load("/article/listMyArticle");
 				}else{
 					alert("发布失败")
@@ -122,9 +125,6 @@ function publish(){
 
 
 $(function(){
-
-	
-	
 	//自动加载文章的栏目
 	$.ajax({
 		type:"get",
@@ -134,22 +134,30 @@ $(function(){
 			for(var i in list){
 				$("#channel").append("<option value='"+list[i].id+"'>"+list[i].name+"</option>")
 			}
-		}
+			$("#channel").val(${art.channelId})
+			
+			 $.get("/article/getCatsByChn",{channelId:${art.channelId}},function(list){
+		 for(var i in list){
+		  $("#category").append("<option value='"+list[i].id+"'>"+list[i].name+"</option>")
+		 }
+		 $("#category").val(${art.categoryId}) 
+	 }) 
+		} 
 		
 	})
 	//为栏目添加绑定事件
 	$("#channel").change(function(){
+		
 		 //先清空原有的栏目下的分类
 		 $("#category").empty();
-		var cid =$(this).val();//获取当前的下拉框的id
+	var cid =$(this).val();//获取当前的下拉框的id
 	//根据ID 获取栏目下的分类
 	 $.get("/article/getCatsByChn",{channelId:cid},function(list){
-		
 		 for(var i in list){
 		  $("#category").append("<option value='"+list[i].id+"'>"+list[i].name+"</option>")
-
 		 }
-		 })
+		
+	 })
 	})
 })
 

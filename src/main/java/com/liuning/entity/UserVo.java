@@ -2,7 +2,7 @@ package com.liuning.entity;
 
 /**
  * 用于查询
- * @author Zhang旭涛
+ * @author liuning
  *
  */
 public class UserVo  extends User{

@@ -7,7 +7,7 @@ import com.liuning.entity.VoteStatic;
 
 /**
  * 
- * @author Zhang旭涛
+ * @author liuning
  *
  */
 public interface Article4VoteService {
@@ -21,6 +21,8 @@ public interface Article4VoteService {
 	int vote(Integer userId, Integer articleId,Character option);
 	
 	List<VoteStatic> getVoteStatics(Integer articleId);
+
+	Article4Vote getCapacityByArticleIdAndUserId(int arId, Integer id);
 	
 	
 	

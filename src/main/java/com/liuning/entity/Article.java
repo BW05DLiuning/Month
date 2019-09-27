@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * 
- * @author Zhang旭涛
+ * @author liuning
  *
  */
 public class Article {

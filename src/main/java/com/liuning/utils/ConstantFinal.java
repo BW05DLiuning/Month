@@ -2,7 +2,7 @@ package com.liuning.utils;
 
 /**
  * 
- * @author Zhang旭涛
+ * @author liuning
  *  常量类
  */
 public class ConstantFinal {

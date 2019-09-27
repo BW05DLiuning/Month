@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -20,7 +21,6 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/view/common/top.jsp"></jsp:include>
-
 	<div>
 		<br />
 	</div>
@@ -30,7 +30,7 @@
 			<div class="col-md-2 ">
 				<ul class="list-group">
 					<li class="list-group-item  text-center"><a class="channel"
-						href="/">热门</a></li>
+						href="/index">热门</a></li>
 					<c:forEach items="${channels}" var="channel">
 						<li class="list-group-item text-center">
 						<a class="channel"
@@ -51,13 +51,13 @@
 					</ol>
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img class="d-block w-100" src="/pic/1.jpg" alt="First slide">
+							<img width="120" height="100" class="d-block w-100" src="/pic/1.jpg" alt="First slide">
 						</div>
 						<div class="carousel-item">
-							<img class="d-block w-100" src="/pic/2.jpg" alt="Second slide">
+							<img width="120" height="100" class="d-block w-100" src="/pic/2.jpg" alt="Second slide">
 						</div>
 						<div class="carousel-item">
-							<img class="d-block w-100" src="/pic/3.jpg" alt="Third slide">
+							<img width="120" height="100" class="d-block w-100" src="/pic/3.jpg" alt="Third slide">
 						</div>
 					</div>
 					<a class="carousel-control-prev" href="#carousel" role="button"
@@ -71,9 +71,9 @@
 				<br />
 				<div id="hot">
 					<!-- 新闻热点 -->
-					<c:forEach items="${hotList}" var="c">
+					<c:forEach items="${pageInfo.list}" var="c">
 						<div class="media">
-							<img class="align-self-start mr-3" src="/pic/${c.picture }"
+							<img  width="120"  height="80" class="align-self-start mr-3" src="/pic/${c.picture }"
 								alt="no pic">
 							<div class="media-body">
 								<h5 class="mt-0">
@@ -82,33 +82,22 @@
 								<p class="blog_item_footer">
 									<span class="glyphicon glyphicon-user" title="作者"></span>作者：${c.username}&nbsp;&nbsp;
 									&nbsp; <span class="glyphicon glyphicon-time" title="发布时间"></span>发布：&nbsp;
-									${c.created }&nbsp;&nbsp;&nbsp;&nbsp;
+									<fmt:formatDate value="${c.created }" pattern="yyyy-MM-dd"/>&nbsp;&nbsp;&nbsp;&nbsp;
 								</p>
 							</div>
-						
-
-
 						</div>
                       <br/>
 					</c:forEach>
-					<div>${pages }</div>
+					<div>${pageStr}</div>
 				</div>
+
 				<!-- 分类 -->
 				<div id="category">
-				
 				</div>
-
-
-
-
 				<br />
-
 				<!-- 文章 -->
 				<div id="article">
-				
-				
 				</div>
-
 			</div>
 
 			<div class="col-md-3">
@@ -117,7 +106,7 @@
 					<div class="card-body">
 						<ol>
 							<c:forEach items="${lastArticles}" var="article">
-								<li class="text-truncate"><a href="/article/${article.id}">${article.title}</a></li>
+								<li class="text-truncate"><a href="/article/getDetail?aId=${article.id}">${article.title}</a></li>
 							</c:forEach>
 						</ol>
 					</div>
@@ -126,7 +115,7 @@
 			   <div class="card-header">友情链接</div>
 			      <ol>
 			    <c:forEach items="${linkList}" var="l">
-			      <li class="text-truncate text-center"><a href="${l.url }" target="_blank">${l.text}</a></li>
+			      <li class="text-truncate text-center"><a href="${l.name }" target="_blank">${l.flase}</a></li>
 			    
 			    </c:forEach>
 			     </ol>

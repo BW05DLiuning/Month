@@ -29,10 +29,8 @@ public class CategoryController {
 	 * @param cid
 	 * @return
 	 */
-	@RequestMapping("getCategories")
+	@RequestMapping("getCategories")//获取每个频道的id去查询频道下所有的文章
 	public String getCategoryByChId(HttpServletRequest request, Integer cid){
-		
-		
 		List<Category> categoris = categoryService.getCategoryByChId(cid);
 		System.out.println("categoris is" + categoris);
 		
@@ -43,9 +41,7 @@ public class CategoryController {
 		request.setAttribute("catygories",categoris);
 		request.setAttribute("channelId",cid);
 		return "index/category";
-		
-		
-		
 	}
+	
 		
 }

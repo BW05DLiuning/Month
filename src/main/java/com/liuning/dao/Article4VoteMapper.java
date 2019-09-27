@@ -13,7 +13,7 @@ import com.liuning.entity.VoteStatic;
 
 /**
  * 
- * @author Zhang旭涛
+ * @author liuning
  *
  */
 @Mapper
@@ -48,12 +48,13 @@ public interface Article4VoteMapper {
 			@Param("articleId")  Integer articleId,
 			@Param("option") Character option);
 	
-	@Select("select  count(1) as voteNum , `option` as optionKey  "
-			+ " FROM cms_vote  "
-			+ " where article_id=#{value} "
-			+ " GROUP BY `option`")
+	@Select("select  count(1) as voteNum , `option` as optionKey FROM cms_vote where article_id=#{value}  GROUP BY `option`")
 	@ResultType(VoteStatic.class)
 	List<VoteStatic> getVoteStatics(Integer articleId);
+
+	@Select("select * from cms_vote where article_id=#{articleId} and user_id=#{userId}")
+	@ResultType(Article4Vote.class)
+	Article4Vote getCapacityByArticleIdAndUserId(@Param("articleId")int arId,@Param("userId")Integer id);
 	
 
 }

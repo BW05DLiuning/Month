@@ -13,16 +13,29 @@
 	href="/resource/css/bootstrap.min.css">
 	<script type="text/javascript">
 	function pass(status){
-		
-		$.post("/article/pass",{status:status,id:'${article.id}'},function(obj){
-			if(obj){
+		$.post(
+				"/article/pass",
+				{status:status,id:'${article.id}'},
+				function(obj){
+				if(obj){
 				alert("操作成功!")
 				$("#content-wrapper").load("/article/checkList")
-			}
-		})
-		
+				}
+			})	
+			
+		}
+	function pasc(hot) {
+		alert(hot)
+		$.post(
+				"/article/pasc",
+				{hot:hot,id:'${article.id}'},
+				function(obj){
+				if(obj){
+				alert("操作成功!")
+				$("#content-wrapper").load("/article/checkList")
+				}
+			})	
 	}
-	
 	function goBack(){
 		$("#content-wrapper").load("/article/checkList")
 	}
@@ -34,6 +47,9 @@
 
 	<button type="button" onclick="pass(1)" class="btn btn-info">通过</button>
 	<button type="button" onclick="pass(2)" class="btn btn-warning">不通过</button>
+	
+	<button type="button" onclick="pasc(1)" class="btn btn-info">设置热门</button>
+	<button type="button" onclick="pasc(0)" class="btn btn-warning">设置不热门</button>
 	<button type="button" onclick="goBack()" class="btn btn-green">返回</button>
 	
 

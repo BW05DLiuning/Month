@@ -6,7 +6,7 @@ import com.liuning.entity.Channel;
 
 /**
  * 
- * @author Zhang旭涛
+ * @author liuning
  *
  */
 public interface ChannelService {

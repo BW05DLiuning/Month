@@ -35,24 +35,43 @@
 					<br/>
 					
 				 </c:forEach> </dd>
-				 <dd> <input type="button" onclick="vote()" value="投票"> </dd>
+				 <dd> <input  id="capacity" type="button" onclick="vote()" value="投票"> </dd>
 			</dl>
 		</form>
 		<script type="text/javascript">
 			function vote(){
-				
-				var data = $("#form").serialize();
-				$.post("/vote/vote",data,function(obj){
-					if(obj){
-						alert("恭喜您，投票成功了");
-						history.go(0)
-					}else{
-						alert("很遺憾，投票失敗，請稍後再試");
-					}
-					
-				})
-				
+				var option=$("[name='option']:checked").val();
+				if(option!=undefined){ 
+					var data = $("#form").serialize();
+					$.post("/vote/vote",data,function(obj){
+						if(obj){
+							alert("恭喜您，投票成功了");
+							history.go(0)
+						}else{
+							alert("很遺憾，投票失敗，請稍後再試");
+						}
+						
+					})
+				}else{
+					alert("选择数据");
+					return
+				}
 			}
+			$(function() { 
+				var arid= ${voteArticle.id};
+				$.post(
+						"/vote/getCapacityByArticleIdAndUserId",	
+						{arId:arid},
+						function(msg) {
+							//alert(msg)
+							if (!msg) {
+								//alert("您已经投过票了,再投杀了你");
+								$("#capacity").attr("disabled",true);
+							}
+						},"json"
+				)
+				
+			}) 
 		</script>
 	
 

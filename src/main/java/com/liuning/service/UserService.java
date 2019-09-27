@@ -6,7 +6,7 @@ import com.liuning.entity.UserVo;
 
 /**
  * 
- * @author Zhang旭涛
+ * @author liuning
  *
  */
 public interface UserService {
@@ -58,6 +58,8 @@ public interface UserService {
 	 * @return
 	 */
 	PageInfo<User> search(int pageNumber, int pageSize, String name);
+	
+	boolean updateloc(Integer id, Integer locked);
 	
 	
 	

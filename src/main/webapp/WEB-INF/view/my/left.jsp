@@ -13,7 +13,7 @@
 			</a></li>
 			<li class="list-group-item  text-center"><a class="channel"
 				href="javascript:void(0)" data="/article/toPublish"
-				class="list-group-item">发布文章</a></li>
+				class="list-group-item">发布文章</a></li>  <!--开始进行发布文章的操作  -->
 				
 			<!-- 我的投票 开始-->	
 		    <li class="list-group-item  text-center"><a class="channel"
@@ -25,7 +25,7 @@
 			<!-- 我的投票 结束-->		
 				
 			<li class="list-group-item  text-center"><a class="channel"
-				href="javascript:void(0)" class="list-group-item">我的评论</a></li>
+				href="javascript:void(0)" class="list-group-item" data="/article/MyComments">我的评论</a></li>
 			<li class="list-group-item  text-center"><a class="channel"
 				href="javascript:void(0)" class="list-group-item">上传头像</a></li>
 			<li class="list-group-item  text-center"><a class="channel"

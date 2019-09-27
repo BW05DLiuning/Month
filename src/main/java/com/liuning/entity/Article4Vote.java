@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 
 /**
  * 
- * @author Zhang旭涛
+ * @author liuning
  *
  */
 public class Article4Vote {

@@ -20,7 +20,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 
 
 		<div class="form-group row ">
-			<textarea name="content" cols="400" rows="5"
+			<textarea id="content" name="content" cols="400" rows="5"
 				style="width: 600px; height: 250px; "></textarea>
 			<br />
 		</div>
@@ -43,12 +43,15 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 <script type="text/javascript">
 //发布文章
 function publish(){
-	
+		var titles=$("#title").val();//获取发布的标题
+		var contents=$("#content").val();//获取发布的内容
 	//alert(editor1.html())
-	
+		if(titles!="" && contents!=""){//判断是否为空
+			
 		//序列化表单数据带文件
 		var formData = $("#form").serialize();
 		//var formData = new FormData($( "#form" )[0]);
+		
 		$.ajax({
 			type:"post",
 			data:formData,
@@ -63,13 +66,16 @@ function publish(){
 					$('#center').load("/vote/list");
 				}else{
 					alert("发布失败")
-				}
-				
+				}				
 			}
-			
-			
-			
 		})
+			}else{
+			if(titles=="" && contents!=""){
+				alert("投票标题不能为空")
+			}else if(titles!=null && contents==""){
+				alert("投票内容不能为空")
+			}
+		}
 	
 /* 	
 	$.post("/article/publish",$("form").serialize()+"&content="+editor1.html(),function(obj){

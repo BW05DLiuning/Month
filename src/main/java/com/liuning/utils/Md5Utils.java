@@ -5,7 +5,7 @@ import org.springframework.context.support.StaticApplicationContext;
 
 /**
  * 
- * @author Zhang旭涛
+ * @author liuning
  *
  */
 public class Md5Utils {

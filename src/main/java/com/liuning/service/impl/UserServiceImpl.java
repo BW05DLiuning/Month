@@ -16,7 +16,7 @@ import com.liuning.utils.Md5Utils;
 
 /**
  * 
- * @author Zhang旭涛
+ * @author liuning
  *
  */
 @Service
@@ -110,6 +110,12 @@ public class UserServiceImpl implements UserService {
 		List<User> users = userMapper.queryList(name);
 		return new PageInfo<User>(users);
 		
+	}
+
+	@Override
+	public boolean updateloc(Integer id, Integer locked) {
+		// TODO Auto-generated method stub
+		return userMapper.updateloc(id,locked);
 	}
 
 }

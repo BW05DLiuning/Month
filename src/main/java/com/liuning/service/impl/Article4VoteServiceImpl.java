@@ -12,8 +12,7 @@ import com.liuning.service.Article4VoteService;
 
 /**
  * 
- * @author Zhang旭涛
- *
+ * @author liuning
  */
 @Service
 public class Article4VoteServiceImpl implements Article4VoteService {
@@ -51,4 +50,9 @@ public class Article4VoteServiceImpl implements Article4VoteService {
 		return avMapper.getVoteStatics(articleId);
 	}
 
+	@Override
+	public Article4Vote getCapacityByArticleIdAndUserId(int arId, Integer id) {
+		// TODO Auto-generated method stub
+		return avMapper.getCapacityByArticleIdAndUserId(arId,id);
+	}
 }

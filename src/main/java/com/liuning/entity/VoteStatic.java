@@ -4,14 +4,14 @@ import com.alibaba.druid.sql.visitor.functions.Char;
 
 /**
  * 投票的統計
- * @author Zhang旭涛
+ * @author liuning
  *
  */
 public class VoteStatic {
 	
 	//
 	String optionKey;
-	Integer voteNum;
+	Integer voteNum;//投票总数
 	String optionTitle;
 	Integer voteNumTotal;
 	
